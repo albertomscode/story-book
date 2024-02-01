@@ -3,6 +3,8 @@ import "./globals.css";
 import { ClerkProvider, UserButton, auth } from "@clerk/nextjs";
 import { sql } from "@vercel/postgres";
 import CreateProfile from "@/components/CreateProfile";
+import Link from "next/link";
+
 // import { db } from "@/lib/db";
 
 const inter = Inter({ subsets: ["latin"] });
