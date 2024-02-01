@@ -5,7 +5,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 
 export default async function Posts() {
-  const { profileId } = auth();
+  const { userId } = auth();
   // we are sorting, becuase vercel puts the last one to change at the end...
   const posts = await sql`SELECT * FROM posts ORDER BY id`;
 
@@ -14,7 +14,7 @@ export default async function Posts() {
     const title = formData.get("title");
     const content = formData.get("content");
 
-    await sql`INSERT INTO posts (title, content, profile_id) VALUES (${title}, ${content}, ${profileId})`;
+    await sql`INSERT INTO posts (title, content, user_id) VALUES (${title}, ${content}, ${userId})`;
 
     revalidatePath("/posts");
     // redirect("/posts"); // doesn't make sense here, because this is the page with the form

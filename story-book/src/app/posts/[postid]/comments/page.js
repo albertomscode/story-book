@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 export default async function EditComment({ params }) {
-  const { profileId } = auth();
+  const { userId } = auth();
   const comment =
     await sql`SELECT * FROM comments WHERE id = ${params.commentid}`;
 
@@ -18,7 +18,7 @@ export default async function EditComment({ params }) {
     redirect(`/posts/${params.postid}`);
   }
 
-  if (profileId !== comment.rows[0].profile_id) {
+  if (userId !== comment.rows[0].user_id) {
     return <p>404 not found (nuaghty)</p>;
   }
 

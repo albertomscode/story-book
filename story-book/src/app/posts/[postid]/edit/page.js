@@ -21,7 +21,7 @@ export default async function EditPost({ params }) {
 
   console.log(userId, post.userId);
   if (userId !== post.rows[0].user_id) {
-    return <p>404 not found (nuaghty)</p>;
+    return <p>404 not found</p>;
   }
 
   return (

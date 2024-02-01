@@ -23,7 +23,7 @@ CREATE TABLE postlikes (
     profile_id INT,
     post_id INT,
     PRIMARY KEY (profile_id, post_id),
-    post_id INT  REFERENCES posts(id)
+    post_id INT REFERENCES posts(id)
 );
 
 
