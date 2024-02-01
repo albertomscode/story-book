@@ -1,0 +1,45 @@
+CREATE TABLE profiles (
+    id SERIAL PRIMARY KEY,
+    clerk_user_id text,
+    username text,
+    bio text
+);
+
+CREATE TABLE posts (
+    id SERIAL PRIMARY KEY,
+    title text,
+    content text,
+    profile_id INT REFERENCES profiles(id)
+);
+
+CREATE TABLE comments (
+    id SERIAL PRIMARY KEY,
+    content text,
+    post_id INT REFERENCES posts(id),
+    profile_id INT REFERENCES profiles(id)
+);
+
+CREATE TABLE postlikes (
+    profile_id INT,
+    post_id INT,
+    PRIMARY KEY (profile_id, post_id),
+    post_id INT  REFERENCES posts(id)
+);
+
+
+CREATE TABLE commentlikes (
+    profile_id INT,
+    comment_id INT,
+    PRIMARY KEY (profile_id, comment_id),
+    comment_id INT REFERENCES comments(id)
+);
+
+
+CREATE TABLE follows (
+    follower_id INT,
+    followee_id INT,
+    PRIMARY KEY (follower_id, followee_id),
+    follower_id REFERENCES profiles(id),
+    followee_id REFERENCES profiles(id)
+);
+
