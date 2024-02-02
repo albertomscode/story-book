@@ -5,8 +5,6 @@ import { sql } from "@vercel/postgres";
 import CreateProfile from "@/components/CreateProfile";
 import Link from "next/link";
 
-// import { db } from "@/lib/db";
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -30,14 +28,10 @@ export default async function RootLayout({ children }) {
           <h1>StoryBook, the brandnew socialmedia</h1>
           <nav>
             <Link href="/">Home</Link>
+            <Link href="/profile">Create your profile</Link>
             <Link href="/posts">Posts</Link>
           </nav>
-          {/* if the user has a profile, carry on as normal */}
-
-          {profileRes.rowCount !== 0 && children}
-
-          {/* if the user DOESN'T has a profile, show the CreateProfile component */}
-          {profileRes.rowCount === 0 && <CreateProfile />}
+          {children}
         </body>
       </html>
     </ClerkProvider>
