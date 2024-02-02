@@ -10,10 +10,9 @@ export default async function EditComment({ params }) {
 
   async function handleEditComment(formData) {
     "use server";
-    const username = formData.get("username");
     const content = formData.get("content");
 
-    await sql`UPDATE comments SET username = ${username}, content = ${content} WHERE id = ${params.commentid}`;
+    await sql`UPDATE comments SET content = ${content} WHERE id = ${params.commentid}`;
     revalidatePath(`/posts/${params.postid}`);
     redirect(`/posts/${params.postid}`);
   }

@@ -11,10 +11,11 @@ export default async function SinglePostPage({ params }) {
 
   async function handleAddComment(formData) {
     "use server";
-    const username = formData.get("username");
     const content = formData.get("content");
+    const profile_id = formData.get("profile_id");
 
-    await sql`INSERT INTO comments (username, content, post_id, user_id) VALUES (${username}, ${content}, ${params.postid}, ${userId})`;
+
+    await sql`INSERT INTO comments (content, post_id, profile_id, user_id) VALUES (${content}, ${params.postid}, ${profile_id}, ${userId})`;
     revalidatePath(`/posts/${params.postid}`);
   }
 
