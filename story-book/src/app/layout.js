@@ -31,7 +31,9 @@ export default async function RootLayout({ children }) {
             <Link href="/profile">Create your profile</Link>
             <Link href="/posts">Posts</Link>
           </nav>
-          {children}
+          <div>
+           {children}
+          </div>
         </body>
       </html>
     </ClerkProvider>
