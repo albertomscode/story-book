@@ -3,6 +3,8 @@ import { sql } from "@vercel/postgres";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import CreateProfile from "@/components/CreateProfile";
+import "../globals.css";
+
 
 
 export default async function CreateProfiles() {
@@ -19,7 +21,7 @@ export default async function CreateProfiles() {
   }
 
   return (
-    <div>
+    <div className="profile-container">
       <h2>Create Profile</h2>
       <form action={addNewProfile}>
         <input name="username" placeholder="Username" />

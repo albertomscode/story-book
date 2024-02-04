@@ -2,7 +2,6 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider, UserButton, auth } from "@clerk/nextjs";
 import { sql } from "@vercel/postgres";
-import CreateProfile from "@/components/CreateProfile";
 import Link from "next/link";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -20,22 +19,22 @@ export default async function RootLayout({ children }) {
     await sql`SELECT * FROM profiles WHERE clerk_user_id = ${userId}`;
     console.log(profileRes);
 
-  return (
-    <ClerkProvider>
-      <html lang="en">
-        <body className={inter.className}>
-          <UserButton afterSignOutUrl="/" />
-          <h1>StoryBook, the brandnew socialmedia</h1>
-          <nav>
-            <Link href="/">Home</Link>
-            <Link href="/profile">Create your profile</Link>
-            <Link href="/posts">Posts</Link>
-          </nav>
-          <div>
-           {children}
-          </div>
-        </body>
-      </html>
-    </ClerkProvider>
-  );
-}
+    return (
+      <ClerkProvider>
+        <html lang="en">
+          <body className={inter.className}>
+            <UserButton afterSignOutUrl="/" />
+            <h1>StoryBook, the brand new social media</h1>
+            <nav>
+              <Link href="/">Home</Link>
+              <Link href="/profile">Create your profile</Link>
+              <Link href="/posts">Posts</Link>
+            </nav>
+            <div className="container">
+              {children}
+            </div>
+          </body>
+        </html>
+      </ClerkProvider>
+    );
+  }

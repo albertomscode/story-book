@@ -2,11 +2,11 @@ import { auth } from "@clerk/nextjs";
 import { sql } from "@vercel/postgres";
 import { revalidatePath } from "next/cache";
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import "../globals.css";
+
 
 export default async function Posts() {
   const { userId } = auth();
-  // we are sorting, becuase vercel puts the last one to change at the end...
   const posts = await sql`SELECT * FROM posts ORDER BY id`;
 
   async function handleCreatePost(formData) {
@@ -17,11 +17,10 @@ export default async function Posts() {
     await sql`INSERT INTO posts (title, content, user_id) VALUES (${title}, ${content}, ${userId})`;
 
     revalidatePath("/posts");
-    // redirect("/posts"); // doesn't make sense here, because this is the page with the form
   }
 
   return (
-    <div>
+    <div className="posts-container">
       <h2>Posts</h2>
       {userId && (
         <form action={handleCreatePost}>

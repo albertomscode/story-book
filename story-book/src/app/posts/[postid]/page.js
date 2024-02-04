@@ -3,6 +3,8 @@ import { sql } from "@vercel/postgres";
 import { revalidatePath } from "next/cache";
 import Link from "next/link";
 
+
+
 export default async function SinglePostPage({ params }) {
   const { userId } = auth();
   const post = await sql`SELECT * FROM posts WHERE id = ${params.postid}`;
@@ -47,7 +49,6 @@ export default async function SinglePostPage({ params }) {
               <Link
                 href={`/posts/${params.postid}/comments/${comment.id}/edit `}
               >
-                Edit
               </Link>
             )}
           </div>

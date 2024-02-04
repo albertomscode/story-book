@@ -1,5 +1,6 @@
 import { sql } from "@vercel/postgres";
 
+
 export default async function profile() {
   try {
     // Fetch profiles from the database
@@ -15,7 +16,7 @@ export default async function profile() {
     }
 
     return (
-      <div>
+      <div className="profile-list-container">
         <h2>Profile List</h2>
         <ul>
           {profiles.rows.map((profile) => (
@@ -27,9 +28,9 @@ export default async function profile() {
       </div>
     );
   } catch (error) {
-    console.error("Error fetching profiles:", error);
+    console.error('Error fetching profiles:', error);
     return (
-      <div>
+      <div className="profile-list-container">
         <h2>Profile List</h2>
         <p>Error fetching profiles. Please try again later.</p>
       </div>
