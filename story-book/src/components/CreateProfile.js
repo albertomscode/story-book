@@ -1,29 +1,38 @@
-import { auth } from "@clerk/nextjs";
 import { sql } from "@vercel/postgres";
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 
-export default function CreateProfile() {
-  const { userId } = auth();
+export default async function profile() {
+  try {
+    // Fetch profiles from the database
+    const profiles = await sql`SELECT * FROM profiles`;
 
-  async function addNewProfile(formData) {
-    "use server";
-    const username = formData.get("username");
-    const bio = formData.get("bio");
+    if (profiles.length === 0) {
+      return (
+        <div>
+          <h2>Profile List</h2>
+          <p>No profiles found.</p>
+        </div>
+      );
+    }
 
-    await sql`INSERT INTO profiles (clerk_user_id, username, bio) VALUES (${userId}, ${username}, ${bio})`;
-    revalidatePath("/");
-    redirect("/");
+    return (
+      <div>
+        <h2>Profile List</h2>
+        <ul>
+          {profiles.rows.map((profile) => (
+            <li key={profile.id}>
+              <strong>{profile.username}</strong>: {profile.bio}
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  } catch (error) {
+    console.error("Error fetching profiles:", error);
+    return (
+      <div>
+        <h2>Profile List</h2>
+        <p>Error fetching profiles. Please try again later.</p>
+      </div>
+    );
   }
-
-  return (
-    <div>
-      <h2>Create Profile</h2>
-      <form action={addNewProfile}>
-        <input name="username" placeholder="Username" />
-        <textarea name="bio" placeholder="Bio"></textarea>
-        <button>Submit</button>
-      </form>
-    </div>
-  );
 }

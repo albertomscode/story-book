@@ -2,8 +2,10 @@ import { auth } from "@clerk/nextjs";
 import { sql } from "@vercel/postgres";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import CreateProfile from "@/components/CreateProfile";
 
-export default function CreateProfile() {
+
+export default async function CreateProfiles() {
   const { userId } = auth();
 
   async function addNewProfile(formData) {
@@ -12,8 +14,8 @@ export default function CreateProfile() {
     const bio = formData.get("bio");
 
     await sql`INSERT INTO profiles (clerk_user_id, username, bio) VALUES (${userId}, ${username}, ${bio})`;
-    revalidatePath("/");
-    redirect("/");
+    revalidatePath("/profiles");
+    redirect("/posts");
   }
 
   return (
@@ -24,6 +26,7 @@ export default function CreateProfile() {
         <textarea name="bio" placeholder="Bio"></textarea>
         <button>Submit</button>
       </form>
+      <CreateProfile />
     </div>
   );
 }
