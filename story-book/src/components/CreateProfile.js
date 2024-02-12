@@ -1,4 +1,6 @@
 import { sql } from "@vercel/postgres";
+import Link from "next/link";
+
 
 
 export default async function profile() {
@@ -19,11 +21,13 @@ export default async function profile() {
       <div className="profile-list-container">
         <h2>Profile List</h2>
         <ul>
-          {profiles.rows.map((profile) => (
-            <li key={profile.id}>
+          {profiles.rows.map((profile) => {
+            return (
+            <Link key={profile.id} href={`/user/${profile.id}`}>
               <strong>{profile.username}</strong>: {profile.bio}
-            </li>
-          ))}
+            </Link>
+            );
+            })}
         </ul>
       </div>
     );

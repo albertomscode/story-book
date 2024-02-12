@@ -27,7 +27,7 @@ export default async function RootLayout({ children }) {
             <h1>StoryBook, the brand new social media</h1>
             <nav>
               <Link href="/">Home</Link>
-              <Link href="/profile">Create your profile</Link>
+              <Link href="/user">Create your profile</Link>
               <Link href="/posts">Posts</Link>
             </nav>
             <div className="container">

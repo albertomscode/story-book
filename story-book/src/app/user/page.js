@@ -3,12 +3,14 @@ import { sql } from "@vercel/postgres";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import CreateProfile from "@/components/CreateProfile";
+import Link from "next/link";
 import "../globals.css";
 
 
 
 export default async function CreateProfiles() {
   const { userId } = auth();
+  const profile = await sql`SELECT * FROM profiles ORDER BY id`;
 
   async function addNewProfile(formData) {
     "use server";
@@ -16,8 +18,8 @@ export default async function CreateProfiles() {
     const bio = formData.get("bio");
 
     await sql`INSERT INTO profiles (clerk_user_id, username, bio) VALUES (${userId}, ${username}, ${bio})`;
-    revalidatePath("/profiles");
-    redirect("/posts");
+    revalidatePath("/user");
+    redirect(`/user/${params.profileid}`);
   }
 
   return (
