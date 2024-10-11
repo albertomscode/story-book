@@ -18,7 +18,7 @@ export default async function CreateProfiles() {
     const bio = formData.get("bio");
 
     await sql`INSERT INTO profiles (clerk_user_id, username, bio) VALUES (${userId}, ${username}, ${bio})`;
-    revalidatePath("/user");
+    revalidatePath(`/user/${params.profileid}`);
     redirect(`/user/${params.profileid}`);
   }
 
